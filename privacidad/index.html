@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacidad de GRO-Social-MCP</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; max-width: 760px; margin: 0 auto; padding: 24px 16px; color: #1d1d1f; background: #fff; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.2rem; margin-top: 2rem; }
+  .meta { color: #555; font-size: 0.95rem; }
+</style>
+</head>
+<body>
+<h1>Privacidad de GRO-Social-MCP</h1>
+<p class="meta">Fecha de vigencia: 28/10/2026.</p>
+
+<h2>Responsable y contacto</h2>
+<p>GRO-Social-MCP es una integración en preparación de <strong>INDUSIDER S.A.S.</strong>, con domicilio legal en <strong>Camino a Santa Bárbara Km 4 (Au. CBA/Rosario), Córdoba Capital, Argentina</strong>. Las consultas sobre el tratamiento de datos y las solicitudes de acceso, corrección o eliminación pueden dirigirse a <strong>osuna.gonzalo@cercoscba.com</strong>.</p>
+<p>Este documento describe la etapa actual y distingue el alcance proyectado. No acredita una aprobación de LinkedIn ni habilita una conexión o publicación.</p>
+
+<h2>Etapa actual</h2>
+<p>El prototipo local recibe texto aportado por el operador y la identidad de destino elegida; devuelve estado o una previsualización al cliente MCP. El adaptador no persiste esos borradores. El cliente o asistente que recibe la respuesta tiene su propio tratamiento de datos.</p>
+<p>El prototipo no tiene transporte HTTP ni OAuth implementados, no recibe ni almacena credenciales de LinkedIn y no consulta ni publica mediante su API. La asociación verificada entre la app y la página de Cercos no equivale a acceso Community Management concedido.</p>
+
+<h2>Alcance proyectado del MVP</h2>
+<p>La arquitectura elegida es un servidor alojado en Railway, independiente de la notebook, utilizado desde ChatGPT personal. No está desplegado para esta integración.</p>
+<p>La primera etapa proyectada se limita a texto aportado por el operador autorizado y destinado a la página Cercos Córdoba. Cada publicación requeriría revisión, posibilidad de edición y confirmación humana del texto y destino exactos. El mecanismo de confirmación todavía debe implementarse y probarse. El perfil personal de Gonzalo Osuna permanecerá separado de esta app.</p>
+<p>El alcance no incluye recuperar perfiles, posts, comentarios, reacciones, mensajes, seguidores, métricas o búsquedas de LinkedIn para enviarlos a IA. Tampoco incluye scraping, cookies de sesión, mensajes masivos, CRM o programación de publicaciones.</p>
+
+<h2>Datos propuestos y recorrido</h2>
+<p>Para ese MVP se propone tratar estas categorías:</p>
+<ul>
+  <li>Texto aportado por el operador y referencia de la página autorizada.</li>
+  <li>Datos mínimos para autenticar al operador y vincular su sesión con la revisión y confirmación.</li>
+  <li>Datos de la autorización oficial de LinkedIn: código de autorización, credencial de acceso, vencimiento y permisos efectivos.</li>
+  <li>Resultado interno mínimo de cada operación y, si se justifican, datos mínimos de diagnóstico sin contenido o credenciales.</li>
+</ul>
+<p>En el flujo proyectado, ChatGPT enviaría al servidor el texto y el destino necesarios. Una revisión protegida permitiría confirmar o cancelar. Sólo la confirmación válida del operador habilitaría un intento de publicación. Se propone devolver a ChatGPT únicamente un estado interno mínimo, sin credenciales, respuestas API completas, errores originales, perfiles, URNs o identificadores de posts de LinkedIn.</p>
+<p>La autorización de acceso al MCP sería independiente del OAuth del administrador para LinkedIn. No se solicitarán contraseñas de LinkedIn por conversación ni dentro del conector. Los tokens y secretos no deben aparecer en conversaciones, resultados MCP, vistas de revisión o logs.</p>
+
+<h2>Participantes y tratamiento de terceros</h2>
+<p>En el flujo proyectado participarían INDUSIDER S.A.S., OpenAI/ChatGPT, Railway y LinkedIn. El proveedor que autentique el acceso al MCP aún no está definido para esta integración; deberá identificarse antes de activar ese tratamiento. No se eligió una región de alojamiento LinkedIn ni se verificaron las ubicaciones efectivas de todos los proveedores.</p>
+<p>ChatGPT personal y los otros proveedores tienen condiciones y controles propios. La configuración efectiva de mejora de modelos, historial y eliminación de la cuenta ChatGPT no se ha comprobado. No se asegura exclusión del entrenamiento, residencia exclusivamente argentina ni que desconectar el conector borre las conversaciones o archivos del cliente.</p>
+<p>El diseño propone utilizar contenido aportado independientemente por el operador, sin enviar lecturas de contenido de la API LinkedIn al modelo. Esto no constituye una excepción general a las restricciones de LinkedIn.</p>
+
+<h2>Conservación y eliminación</h2>
+<p>Actualmente el adaptador no persiste los borradores ni custodia credenciales LinkedIn. Esa descripción no determina la retención del cliente, del sistema operativo o de otros proveedores.</p>
+<p>Para el servicio alojado todavía deben cerrarse el almacenamiento de credenciales, el vencimiento de borradores y aprobaciones, la necesidad y conservación de comprobantes o logs, y el tratamiento de copias de infraestructura. No hay plazos numéricos aprobados ni controles de conservación acreditados para esa versión.</p>
+<p>La propuesta es minimizar datos: mantener el contenido de revisión en memoria, descartar operaciones al concluir, cancelar o vencer, y evitar texto, secretos y respuestas API en registros. Para continuidad tras reinicios se evaluará una única credencial persistente cifrada; la opción no está aprobada ni implementada. No se presupone acceso a refresh tokens.</p>
+<p>Antes de conectar una cuenta se deberán documentar las reglas concretas, probar la desconexión y eliminación e informar sus límites. La propuesta de desconexión debe impedir nuevos usos y retirar la credencial activa; borrar nuestra copia no demuestra revocación en LinkedIn. No se promete borrado físico instantáneo de copias o datos de terceros.</p>
+<p>Eliminar datos del conector no retira una publicación ya realizada en LinkedIn. La eliminación de publicaciones queda fuera de esta primera etapa.</p>
+
+<h2>Solicitudes, seguridad y cambios</h2>
+<p>El contacto indicado recibe consultas y solicitudes sobre esta integración. Para atender una solicitud se verificará su legitimidad utilizando la información mínima necesaria. No deben enviarse contraseñas o tokens por correo o conversación.</p>
+<p>HTTPS, autenticación, aislamiento de credenciales, minimización de datos y validación de permisos son controles propuestos para la versión alojada; este documento no los presenta como implementados.</p>
+<p>Puede aprobarse una versión pública que describa fielmente esta etapa de preparación. Antes de activar nuevas categorías de tratamiento deberán completarse sus datos, proveedores, conservación y controles, actualizar el texto e informar las autorizaciones correspondientes. Publicar este documento no autoriza OAuth, permisos API ni publicaciones en LinkedIn.</p>
+</body>
+</html>
