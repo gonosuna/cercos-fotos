@@ -15,12 +15,18 @@ STABLES = {"USDT","USDC","FDUSD","TUSD","BUSD","DAI","USDP","USDD","EUR","AEUR",
 LEVERAGED = ("UP", "DOWN", "BULL", "BEAR")
 
 def get(url, **params):
-    for i in range(5):
-        r = requests.get(url, params=params, timeout=30)
-        if r.status_code == 200:
-            return r.json()
+    r = None
+    for i in range(8):
+        try:
+            r = requests.get(url, params=params, timeout=30)
+            if r.status_code == 200:
+                return r.json()
+        except requests.RequestException:
+            pass
         time.sleep(2 * (i + 1))
-    r.raise_for_status()
+    if r is not None:
+        r.raise_for_status()
+    raise RuntimeError(f"sin respuesta: {url}")
 
 def universe(top_n=70):
     info = get(f"{BASE}/api/v3/exchangeInfo")
