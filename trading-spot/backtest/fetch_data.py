@@ -1,7 +1,7 @@
 """Baja datos PUBLICOS (sin claves) de Binance y arma el universo de criptos.
 
 Universo: top por capitalizacion (CoinGecko) que tengan par USDT en Binance spot,
-sin stablecoins ni tokens apalancados, volumen promedio 30d >= 20M USD y > 1 anio de historia.
+sin stablecoins ni tokens apalancados, volumen promedio 30d >= 3M USD y > 1 anio de historia.
 Guarda velas de 1 hora en data/<SIMBOLO>.csv
 """
 import sys, time, json, pathlib, requests
@@ -60,14 +60,15 @@ if __name__ == "__main__":
     start = end - YEARS * 365 * 24 * 3600_000
     kept = []
     for s in syms:
-        df = klines(s, start, end)
+        f = DATA / f"{s}.csv"
+        df = pd.read_csv(f) if f.exists() else klines(s, start, end)
         days = (df.t.iloc[-1] - df.t.iloc[0]) / 86400_000 if len(df) else 0
         if days < 365:
             print(f"  {s}: solo {days:.0f} dias de historia -> excluida (< 1 anio)")
             continue
         v30 = df.qv.tail(24 * 30).sum() / 30
-        if v30 < 20e6:
-            print(f"  {s}: volumen 30d {v30/1e6:.1f}M < 20M -> excluida")
+        if v30 < 3e6:
+            print(f"  {s}: volumen 30d {v30/1e6:.1f}M < 3M -> excluida")
             continue
         df.to_csv(DATA / f"{s}.csv", index=False)
         kept.append(s)
