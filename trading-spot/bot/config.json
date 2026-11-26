@@ -1,0 +1,35 @@
+{
+  "mode": "testnet",
+  "real_confirmed": false,
+  "control": "asistido",
+  "sell_requires_confirm": true,
+
+  "capital": 1000,
+  "budget_pct": 0.60,
+  "tranche_w": [0.15, 0.20, 0.30, 0.35],
+  "min_usdt": 100,
+  "dca_drops": [0.0, 0.07, 0.15, 0.25],
+
+  "entry_drop": 0.15,
+  "entry_rsi": 35,
+
+  "act": 0.065,
+  "floor": 0.05,
+  "trail": 0.015,
+  "fee": 0.001,
+  "slip": 0.0003,
+
+  "max_buys_day": 3,
+  "max_proposals_day": 8,
+  "cooldown_hours": 12,
+  "sell_cooldown_min": 30,
+  "proposal_ttl_min": 20,
+  "price_tolerance": 0.01,
+
+  "window_from_hour": 10,
+  "window_to_hour": 18,
+  "weekdays": [0, 1, 2, 3, 4],
+
+  "poll_seconds": 30,
+  "universe": ["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","SOLUSDT","TRXUSDT","DOGEUSDT","ADAUSDT","LINKUSDT","AVAXUSDT","NEARUSDT","UNIUSDT","SUIUSDT","PEPEUSDT","LTCUSDT","BCHUSDT","AAVEUSDT","XLMUSDT","HBARUSDT","TAOUSDT","ENAUSDT","ZECUSDT","QNTUSDT"]
+}
