@@ -10,8 +10,8 @@
   "min_usdt": 100,
   "dca_drops": [0.0, 0.07, 0.15, 0.25],
 
-  "entry_drop": 0.15,
-  "entry_rsi": 35,
+  "entry_drop": 0.25,
+  "entry_rsi": 30,
 
   "act": 0.065,
   "floor": 0.05,
